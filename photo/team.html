@@ -1,0 +1,164 @@
+<html>
+<head>
+    <title>aMurchik Telegram Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: url('photo/fon3.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        .logo {
+            font-weight:700;
+            font-size: 25px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            margin: 0 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .nav-links {
+            display: flex;
+        }
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 50px 0;
+        }
+        .profile {
+            margin: 20px;
+            padding: 20px;
+            background: rgb(232, 232, 232);
+            border-radius: 30px;
+            width: 300px;
+            text-align: left;
+            color: rgb(22, 22, 22);
+        }
+        .profile img {
+            width: 100%;
+            border-radius: 20px;
+        }
+        .profile h2 {
+            margin: 10px 0;
+        }
+        .profile p {
+            margin: 0;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background-color: rgba(255, 0, 0, 0.719);
+                position: absolute;
+                top: 60px;
+                left: 0;
+            }
+            .nav-links a {
+                margin: 15px 0;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .content h1 {
+            font-size: 34px;
+            margin: 0;
+            }
+            .content p {
+                font-size: 13px;
+                margin: 10px 0 30px;
+            }
+            .buttons a {
+            background: white;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            }
+            .footer {
+            color: rgba(0, 0, 0, 0);
+            margin-top: 700px;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="index.html">aMurchik</a>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links">
+            <a href="#"><b>Team</b></a>
+            <a href="about.html">About us</a>
+            <a href="#">Github</a><br>
+        </div>
+    </div>
+    <div class="content">
+        <div class="profile">
+    <img alt="Image of Den" height="300" src="https://labfunny.github.io/test/photo1/i.jpg" width="300"/>
+    <h2>
+     Den - Founder, CEO
+    </h2>
+    <p>
+     About me: Мене звати, Ден. я є засновником, а також головним розробником "aMurchik".
+    </p>
+   </div>
+   <div class="profile">
+    <img alt="Image of Владислав" height="300" src="https://labfunny.github.io/test/photo1/v.jpg" width="300"/>
+    <h2>
+     Влад - PR Manager
+    </h2>
+    <p>
+     About me: Мене звати, Влад. я є піар менеджер. Розкручую аудиторію "aMurchik" як можу.
+    </p>
+   </div>
+    <div class="footer">
+        © 2024 aMurchik
+    </div>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>
