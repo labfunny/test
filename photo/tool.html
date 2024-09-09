@@ -131,6 +131,56 @@
             cursor: pointer;
         }
     </style>
+    <style>
+        /* ... (rest of the styles remain the same) */
+    
+        /* Add responsive design for mobile devices */
+        @media only screen and (max-width: 768px) {
+            /* iPhone 11 Pro has a screen width of 414px, so we'll use that as a breakpoint */
+            body {
+                font-size: 16px;
+            }
+            .header {
+                padding: 10px;
+            }
+            .banner {
+                width: 100%;
+                margin: 10px auto;
+                padding: 10px;
+            }
+            .content {
+                margin: 10px;
+            }
+            .timetable {
+                width: 100%;
+                margin: 10px auto;
+            }
+            .classroom-codes {
+                margin: 10px;
+                text-align: left;
+                width: 100%;
+            }
+            .modal-content {
+                width: 90%;
+                margin: 10% auto;
+                padding: 10px;
+            }
+        }
+    
+        /* Add more breakpoints for other devices */
+        @media only screen and (max-width: 480px) {
+            /* smaller devices, like iPhone 8 */
+            body {
+                font-size: 14px;
+            }
+        }
+        @media only screen and (max-width: 320px) {
+            /* even smaller devices, like iPhone 5 */
+            body {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="header">
