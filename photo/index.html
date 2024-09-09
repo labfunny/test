@@ -1,163 +1,189 @@
 <html>
 <head>
-    <title>aMurchik Telegram Bot</title>
+    <title>UMSF Tool</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
-            background: url('https://labfunny.github.io/test/photo/fon3.png') no-repeat center center fixed;
+            background: url('photo/fon1.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white;
             text-align: center;
         }
-        .logo {
-            font-weight:700;
-            font-size: 25px;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-        }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 22px;
-            margin: 0 15px;
-        }
-        .navbar a:hover {
-            text-decoration: underline;
-        }
-        .menu-icon {
-            display: none;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        .nav-links {
-            display: flex;
-        }
-        .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .content h1 {
-            font-size: 48px;
-            margin: 0;
-        }
-        .content p {
-            font-size: 18px;
-            margin: 10px 0 30px;
-        }
-        .buttons {
+        .header {
+            padding: 20px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0);
         }
-        .buttons a {
-            background: white;
-            color: black;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            font-size: 14px;
-        }
-        @media (max-width: 1000px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                text-align: center;
-                background-color: rgba(255, 0, 0, 0.719);
-                position: absolute;
-                top: 60px;
-                left: 0;
-            }
-            .navbar a {
-                color: white;
-                text-decoration: none;
-                font-size: 50px;
-                margin: 0 15px;
-            }
-            .navbar a:hover {
-                text-decoration: underline;
-            }
-            .menu-icon {
-                display: none;
-                font-size: 80px;
-                cursor: pointer;
-            }
-
-
-            .nav-links a {
-                margin: 15px 0;
-            }
-            .menu-icon {
-                display: block;
-                size: 80px;
-            }
-            .content h1 {
-            font-size: 34px;
+        .header h1 {
             margin: 0;
-            }
-            .content p {
-                font-size: 13px;
-                margin: 10px 0 30px;
-            }
-            .buttons a {
-            background: white;
-            color: black;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 15px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 10px;
+        }
+        .banner {
+            background: url('photo/banner.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+        }
+        .banner h2 {
+            margin: 0;
+            font-size: 24px;
+            color: white;
+        }
+        .banner p {
+            margin: 0;
+            font-size: 14px;
+            color: white;
+        }
+        .banner .icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+        }
+        .content {
+            margin: 20px;
+        }
+        .content p {
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .content h2 {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .timetable {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        .timetable img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .classroom-codes {
+            margin: 20px;
+            text-align: left;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .classroom-codes p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            border-radius: 10px;
+            background-color: #ff3c00;
+            margin: 15% auto;
+            padding: 20px;
+            border: 0px solid #888;
+            width: 80%;
+            max-width: 800px;
+            color: white;
+        }
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .close {
+            color: #ffffff;
+            float: right;
+            font-size: 50px;
             font-weight: bold;
-            }
-    
+        }
+        .close:hover,
+        .close:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <div class="logo">
-            <a href="#">aMurchik</a>
-        </div>
-        <div class="menu-icon" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="nav-links">
-            <a href="https://labfunny.github.io/test/photo/team.html">Team</a>
-            <a href="https://labfunny.github.io/test/photo/about.html">About us</a>
-            <a href="#">Github</a><br>
-        </div>
+    <div class="header">
+        <h1>UMSF Tool</h1>
+        <p>made with love</p>
+    </div>
+    <div class="banner">
+        <a href="https://t.me/aMurchiklovebot">
+        <h2>aMurchick</h2>
+        <p>Знайди свою митницю</p>
+        <i class="fas fa-arrow-right icon"></i>
+        </a>
     </div>
     <div class="content">
-        <h1>aMurchik Telegram Bot</h1>
         <p>created by @umsfdevs</p>
-        <div class="buttons">
-            <a href="https://t.me/aMurchiklovebot">aMurchik</a>
-            <a href="https://t.me/umsfdevs">Канал</a>
+        <h2>ІП323-1</h2>
+        <p>графік навчання</p>
+        <div class="timetable" id="timetable">
+            <img src="photo/gref.jpg" alt="Графік навчання" />
+        </div>
+        <div class="classroom-codes">
+            <p>Classroom коди:</p>
+            <p>vio49hp - Математичний аналіз</p>
+            <p>cfy5y44 - ООП</p>
+            <p>gyjsi4k - Товарознавство в митній справі</p>
+            <p>r2lvlck - ТРПО</p>
+            <p>f67arrp - БЖД</p>
+            <p>mrpgwz4 - Методи оптимізації</p>
+            <p>kevlg2h - Операційні системи</p>
         </div>
     </div>
-    <div class="footer">
-        © 2024 aMurchik
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="photo/gref.jpg" alt="Графік навчання" />
+        </div>
     </div>
+
     <script>
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        var modal = document.getElementById("myModal");
+        var timetable = document.getElementById("timetable");
+        var span = document.getElementsByClassName("close")[0];
+
+        timetable.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 </body>
