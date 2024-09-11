@@ -1,0 +1,123 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-image: url('/static/fon.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover; /* changed to 'cover' to reduce background image size on mobile devices */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    padding: 20px; /* added padding to create a gap between the screen edges and the box */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* added align-items: center to vertically center the elements */
+    width: 100%;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+    display: inline-block; /* added display: inline-block to make the h1 element an inline element */
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 19px;
+    margin-left: 20px; /* added margin-left to create a gap between the h1 and a elements */
+}
+
+.converter {
+    background: #161616;
+    border-radius: 38px;
+    padding: 30px;
+    width: 400px;
+    margin-top: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* added box shadow to create a subtle depth effect */
+}
+
+.converter div {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.converter label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.converter input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: rgb(0, 0, 0);
+    color: white;
+    font-size: 18px;
+    margin-left: 0px;
+}
+
+.converter .result {
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.converter button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: #76DD02;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.converter button:hover {
+    background: #00cc00;
+}
+
+.text {
+    color: #00cc0000;
+}
+
+/* added media queries for iPhone XR and below */
+@media (max-width: 414px) { /* iPhone XR and below */
+    .container {
+        padding: 10px; /* reduced padding to create a smaller gap between the screen edges and the box */
+    }
+    .converter {
+        width: 90%;
+        margin-top: 50px; /* reduced margin top to accommodate smaller screen size */
+    }
+    .converter input, .converter button {
+        font-size: 16px; /* reduced font size to fit smaller screen size */
+    }
+}
