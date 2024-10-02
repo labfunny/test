@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="--tg-viewport-height: 100vh; --tg-viewport-stable-height: 100vh;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P2Pc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -28,7 +30,7 @@
         }
 
         .container {
-            background-color: rgb(255, 255, 255);
+            background-color: var(--tg-theme-bg-color);
             border-radius: 30px;
             padding: 20px;
             width: 100%;
@@ -40,14 +42,14 @@
             font-size: 26px;
             text-align: left;
             margin-bottom: 20px;
-            color: rgb(0, 0, 0);
+            color: var(--tg-theme-text-color);
         }
 
         label {
             display: block;
             margin: 10px 0 5px;
             font-size: 16px;
-            color: rgb(0, 0, 0);
+            color: var(--tg-theme-text-color);
         }
 
         select, input {
@@ -55,8 +57,8 @@
             padding: 10px;
             border: none;
             border-radius: 15px;
-            background-color: #E2E2E2;
-            color: #696969;
+            background-color: var(--tg-theme-secondary-bg-color);
+            color: var(--tg-theme-subtitle-text-color);
             font-size: 14px;
         }
 
@@ -64,23 +66,23 @@
             width: 100%;
             padding: 10px;
             margin-top: 20px;
-            background-color: #32CD32;
+            background-color: var(--tg-theme-button-color);
             border: none;
             border-radius: 15px;
-            color: #fff;
+            color: var(--tg-theme-button-text-color);
             font-size: 16px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #28a745;
+            background-color: var(--tg-theme-button-color);
         }
 
         #result {
             margin-top: 20px;
             font-size: 16px;
             text-align: center;
-            color: rgb(0, 0, 0);
+            color: var(--tg-theme-text-color);
         }
 
         .header-links {
@@ -172,6 +174,7 @@
         <div id="result"></div>
     </div>
 
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         function calculateProfit() {
             const buyPrice = parseFloat(document.getElementById("buy-price").value);
