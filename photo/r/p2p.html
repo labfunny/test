@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2Pc</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Загальні стилі */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Montserrat, sans-serif;
+        }
+
+        body {
+            background-color: #101010;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://labfunny.github.io/test/photo/r/fon.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        .container {
+            background-color: rgb(255, 255, 255);
+            border-radius: 30px;
+            padding: 20px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 26px;
+            text-align: left;
+            margin-bottom: 20px;
+            color: rgb(0, 0, 0);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: rgb(0, 0, 0);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            background-color: #E2E2E2;
+            color: #696969;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #32CD32;
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #28a745;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+            color: rgb(0, 0, 0);
+        }
+
+        .header-links {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .header-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 90%;
+                max-width: 400px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            select, input {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+
+            #result {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>DeepSync (P2P)</h1>
+        <form>
+            <label for="crypto">SelectCrypto:</label>
+            <select id="crypto">
+                <option value="TON">Toncoin (TON)</option>
+                <option value="USDT">Tether (USDT)</option>
+                <option value="BITCOIN">Bitcoin (BTC)</option>
+                <option value="ETH">Ethereum (ETH)</option>
+                <option value="SOLANA">Solana (SOL)</option>
+                <option value="DOGE">Dogecoin (DOGE)</option>
+                <option value="DOGE">Cardano (ADA)</option>
+                <option value="DOGE">XRP (XRP)</option>
+                <option value="DOGE">Polkadot (DOT)</option>
+                <option value="DOGE">Shiba Inu (SHIB)</option>
+            </select>
+
+            <label for="fiat">Select Fiat:</label>
+            <select id="fiat">
+                <option value="UAH">UAH</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+                <option value="CHF">CHF</option>
+                <option value="CNY">CNY</option>
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+                <option value="SGD">SGD</option>
+            </select>
+
+            <label for="buy-price">Ex #1 Buy Price (Fiat):</label>
+            <input type="number" id="buy-price" placeholder="Enter Buy Price">
+
+            <label for="sell-price">Ex #2 Sell Price (Fiat):</label>
+            <input type="number" id="sell-price" placeholder="Enter Sell Price">
+
+            <label for="amount">Amount of Crypto:</label>
+            <input type="number" id="amount" placeholder="Enter Amount">
+
+            <label for="sell-fee">Sell Fee(%) on Ex #2:</label>
+            <input type="number" id="sell-fee" placeholder="Enter %">
+
+            <button type="button" onclick="calculateProfit()">Calculate Profit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateProfit() {
+            const buyPrice = parseFloat(document.getElementById("buy-price").value);
+            const sellPrice = parseFloat(document.getElementById("sell-price").value);
+            const amount = parseFloat(document.getElementById("amount").value);
+            const sellFee = parseFloat(document.getElementById("sell-fee").value) / 100;
+
+            if (!buyPrice || !sellPrice || !amount || sellFee === undefined) {
+                document.getElementById("result").innerHTML = "Please enter all values.";
+                return;
+            }
+
+            const totalBuy = buyPrice * amount;
+            const totalSell = sellPrice * amount * (1 - sellFee);
+            const profit = totalSell - totalBuy;
+
+            document.getElementById("result").innerHTML = `
+                Total Buy Cost: ${totalBuy.toFixed(2)}<br>
+                Total Sell Income (after fees): ${totalSell.toFixed(2)}<br>
+                Profit: ${profit.toFixed(2)}
+            `;
+        }
+    </script>
+</body>
+</html>
