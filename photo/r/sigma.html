@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Binance Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .animate-pulse {
+            animation: pulse 1s infinite;
+        }
+        body {
+          background-color: #000;
+        }
+        #denya {
+          border-radius: 5px;
+        }
+        #button {
+          border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-white font-sans">
+    <!-- Header -->
+    <header class="flex fixed top-0 left-0  w-full z-10 items-center justify-between p-4 bg-black">
+        <div class="flex items-center">
+            <img alt="Binance logo" class="mr-2 h-10 w-10" id="denya" src="denya.jpg">
+            <span class="text-yellow-500 text-lg font-bold">БазарТолі</span>
+        </div>
+        <b><button class="bg-yellow-500 text-black px-6 py-2 rounded text-sm md:text-base" id="button">Реєстрація</button></b>
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-cog text-lg md:text-xl cursor-pointer" onclick="showSourceCode()"></i>
+            <i class="fas fa-bars text-lg md:text-xl"></i>
+        </div>
+    </header>
+    <!-- Main Content --><br><br><br><br>
+    <main class="p-4 space-y-6">
+        <!-- Section: Crypto Information -->
+        <section class="flex justify-between items-center mb-4 flex-wrap">
+            <div class="flex items-center text-sm md:text-base space-x-2">
+                <i class="fas fa-star text-gray-500"></i>
+                <span id="crypto-name">BTC</span>
+                <span class="text-gray-500">/USDT</span>
+            </div>
+            <div class="text-right">
+                <div id="crypto-price" class="text-3xl md:text-4xl text-green-500 font-bold animate-pulse">95533.17</div>
+                <div id="price-change" class="text-green-500 text-sm md:text-base">-2116.82</div>
+                <div id="percentage-change" class="text-green-500 text-sm md:text-base">-2.17%</div>
+            </div>
+        </section>
+        <!-- Section: Statistics -->
+        <section class="grid grid-cols-2 gap-4 text-sm md:text-base">
+            <div>
+                <div class="text-gray-500">Ціна Ковбаси <i class="fas fa-external-link-alt"></i></div>
+                <div id="max-price" class="text-white">98130.00</div>
+            </div>
+            <div>
+                <div class="text-gray-500">Макс 24г (ох уж ці торги)</div>
+                <div id="max-24h" class="text-white">98130.00</div>
+            </div>
+            <div>
+                <div class="text-gray-500">Мін за 24г (у денчіка менше 24)</div>
+                <div id="min-24h" class="text-white">94395.00</div>
+            </div>
+            <div>
+                <div class="text-gray-500">Обсяг 24г (BTC) такі пельмені а могли бути BTC</div>
+                <div id="volume-btc" class="text-white">37891.17</div>
+            </div>
+            <div>
+                <div class="text-gray-500">Обсяг за 24г (USDT)</div>
+                <div id="volume-usdt" class="text-white">3641.11</div>
+            </div>
+        </section>
+        <!-- Section: Chart Navigation -->
+        <section class="bg-black-800 p-4 rounded-lg">
+            <div class="flex justify-between items-center mb-4 flex-wrap">
+                <div class="flex space-x-2 text-xs md:text-sm">
+                    <button class="text-yellow-500">Графік</button>
+                    <button class="text-gray-500">Біржовий стакан</button>
+                    <button class="text-gray-500">Угоди</button>
+                    <button class="text-gray-500">Інфо</button>
+                </div>
+                <div class="flex space-x-2 text-xs md:text-sm">
+                    <button class="text-gray-500">1с</button>
+                    <button class="text-gray-500">15хв</button>
+                    <button class="text-gray-500">1г</button>
+                    <button class="text-gray-500">4г</button>
+                    <button class="text-yellow-500">1Д</button>
+                    <button class="text-gray-500">1Т</button>
+                </div>
+            </div>
+            <!-- TradingView Widget -->
+            <div class="tradingview-widget-container">
+                <div id="tradingview_12345"></div>
+                <script src="https://s3.tradingview.com/tv.js"></script>
+                <script>
+                    new TradingView.widget({
+                        "container_id": "tradingview_12345",
+                        "symbol": "BINANCE:BTCUSDT",
+                        "interval": "D",
+                        "theme": "dark",
+                        "style": "1",
+                        "locale": "uk",
+                        "width": "100%",
+                        "height": 400
+                    });
+                </script>
+            </div>
+        </section>
+        <!-- Buy/Sell Buttons -->
+        <section class="flex fixed bottom-0 left-0 w-full z-10 justify-around items-center p-4 mb-4">
+            <b><button class="bg-green-500 text-black px-11 py-2 rounded" id="button">Купити</button>
+            <button class="bg-red-500 text-black px-11 py-2 rounded" id="button">Продати</button></b>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-black text-gray-500 text-xs md:text-sm text-center py-2">
+        &copy; 2024 Binance Clone. Усі права захищені.
+    </footer>
+    <script>
+      const data = {
+       name: "Den4ik",
+       price: 10000,
+       priceChange: -2116.82,
+       percentageChange: -2.17,
+       maxPrice: 98130.00,
+       max24h: 98130.00,
+       min24h: 94395.00,
+       volumeBTC: 37891.17,
+       volumeUSDT: 3641.11
+      };
+   
+      function updateData() {
+       document.getElementById("crypto-name").innerText = data.name;
+       document.getElementById("crypto-price").innerText = data.price.toFixed(2);
+       document.getElementById("price-change").innerText = data.priceChange.toFixed(2);
+       document.getElementById("percentage-change").innerText = data.percentageChange.toFixed(2) + "%";
+       document.getElementById("max-price").innerText = data.maxPrice.toFixed(2);
+       document.getElementById("max-24h").innerText = data.max24h.toFixed(2);
+       document.getElementById("min-24h").innerText = data.min24h.toFixed(2);
+       document.getElementById("volume-btc").innerText = data.volumeBTC.toFixed(2);
+       document.getElementById("volume-usdt").innerText = data.volumeUSDT.toFixed(2);
+      }
+   
+      function randomizeData() {
+       const priceChange = (Math.random() - 0.5) * 10;
+       data.priceChange = priceChange;
+       data.percentageChange = (data.priceChange / data.price) * 100;
+       data.maxPrice = Math.max(data.maxPrice, data.price);
+       data.min24h = Math.min(data.min24h, data.price);
+       data.volumeBTC += (Math.random() - 0.5) * 1000;
+       data.volumeUSDT += (Math.random() - 0.5) * 100;
+       updateData();
+      }
+   
+      setInterval(randomizeData, 1000);
+      updateData();
+   
+      function showSourceCode() {
+       const sourceCode = document.documentElement.outerHTML;
+       document.getElementById("source-code").innerText = sourceCode;
+       document.getElementById("source-code-modal").classList.remove("hidden");
+      }
+   
+      function closeSourceCode() {
+       document.getElementById("source-code-modal").classList.add("hidden");
+      }
+     </script>
+</body>
+</html>
