@@ -33,22 +33,39 @@
         button:hover {
             background-color: #0056b3;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Добро пожаловать в реферальную систему!</h1>
-    <p id="welcomeMessage"></p>
+    <div id="mainContent">
+        <h1>Добро пожаловать в реферальную систему!</h1>
+        <p id="welcomeMessage"></p>
 
-    <h2>Ваша реферальная ссылка:</h2>
-    <input type="text" id="referralLink" readonly>
-    <button id="copyLink">Скопировать ссылку</button>
+        <h2>Ваша реферальная ссылка:</h2>
+        <input type="text" id="referralLink" readonly>
+        <button id="copyLink">Скопировать ссылку</button>
 
-    <h2>Статистика:</h2>
-    <p>Количество приглашённых: <span id="referralCount">0</span></p>
+        <h2>Статистика:</h2>
+        <p>Количество приглашённых: <span id="referralCount">0</span></p>
+    </div>
+
+    <div id="eventPage" class="hidden">
+        <h1>Событие</h1>
+        <p id="eventDetails">Здесь будут отображаться подробности события.</p>
+    </div>
 
     <script>
         // Telegram WebApp initialization
         const tg = window.Telegram.WebApp;
+
+        // Список событий
+        const events = {
+            "101": "Событие 101: Встреча разработчиков Telegram.",
+            "102": "Событие 102: Обсуждение новых функций WebApp.",
+            "103": "Событие 103: Хакатон по созданию мини-приложений."
+        };
 
         // Получение параметров запуска
         const initDataUnsafe = tg.initDataUnsafe;
@@ -57,36 +74,56 @@
         // ID текущего пользователя
         const userId = user?.id || "unknown_user";
 
-        // Получение параметра ref
-        const referralId = initDataUnsafe.start_param;
+        // Получение параметра startapp
+        const startAppParam = initDataUnsafe.start_param;
 
-        // Элемент интерфейса
+        // Элементы интерфейса
+        const mainContent = document.getElementById("mainContent");
+        const eventPage = document.getElementById("eventPage");
         const welcomeMessage = document.getElementById("welcomeMessage");
         const referralLinkInput = document.getElementById("referralLink");
         const referralCountElem = document.getElementById("referralCount");
+        const eventDetails = document.getElementById("eventDetails");
 
-        // Генерация реферальной ссылки
-        const referralLink = `https://t.me/${tg.initDataUnsafe.bot_username}?start=${userId}`;
-        referralLinkInput.value = referralLink;
+        // Проверка параметра startapp
+        if (startAppParam && startAppParam.startsWith("event_")) {
+            // Если передан параметр для события, отображаем страницу события
+            mainContent.classList.add("hidden");
+            eventPage.classList.remove("hidden");
 
-        // Логика обработки рефералов
-        if (referralId) {
-            welcomeMessage.textContent = `Вы приглашены пользователем: ${referralId}`;
-            saveReferral(referralId);
+            // Извлечение ID события
+            const eventId = startAppParam.split("_")[1];
+            const eventInfo = events[eventId] || "Информация о событии отсутствует.";
+            eventDetails.textContent = eventInfo;
         } else {
-            welcomeMessage.textContent = `Добро пожаловать, ${user?.first_name || "гость"}!`;
+            // Отображаем стандартную реферальную систему
+            mainContent.classList.remove("hidden");
+            eventPage.classList.add("hidden");
+
+            // Генерация реферальной ссылки
+            const referralLink = `https://t.me/${tg.initDataUnsafe.bot_username}?startapp=ref_${userId}`;
+            referralLinkInput.value = referralLink;
+
+            // Логика обработки рефералов
+            const referralId = startAppParam?.replace("ref_", "");
+            if (referralId) {
+                welcomeMessage.textContent = `Вы приглашены пользователем: ${referralId}`;
+                saveReferral(referralId);
+            } else {
+                welcomeMessage.textContent = `Добро пожаловать, ${user?.first_name || "гость"}!`;
+            }
+
+            // Отображение статистики
+            const referralCount = getReferralCount(userId);
+            referralCountElem.textContent = referralCount;
+
+            // Копирование ссылки
+            document.getElementById("copyLink").addEventListener("click", () => {
+                navigator.clipboard.writeText(referralLink)
+                    .then(() => alert("Ссылка скопирована!"))
+                    .catch(err => console.error("Ошибка копирования ссылки", err));
+            });
         }
-
-        // Отображение статистики
-        const referralCount = getReferralCount(userId);
-        referralCountElem.textContent = referralCount;
-
-        // Копирование ссылки
-        document.getElementById("copyLink").addEventListener("click", () => {
-            navigator.clipboard.writeText(referralLink)
-                .then(() => alert("Ссылка скопирована!"))
-                .catch(err => console.error("Ошибка копирования ссылки", err));
-        });
 
         // Сохранение рефералов в localStorage
         function saveReferral(referralId) {
