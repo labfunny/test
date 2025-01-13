@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram WebApp Referral System</title>
+    <title>Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
@@ -15,127 +15,43 @@
         h1, h2 {
             color: #333;
         }
-        #referralLink {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
         .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
-    <div id="mainContent">
-        <h1>Добро пожаловать в реферальную систему!</h1>
-        <p id="welcomeMessage"></p>
-
-        <h2>Ваша реферальная ссылка:</h2>
-        <input type="text" id="referralLink" readonly>
-        <button id="copyLink">Скопировать ссылку</button>
-
-        <h2>Статистика:</h2>
-        <p>Количество приглашённых: <span id="referralCount">0</span></p>
-    </div>
-
     <div id="eventPage" class="hidden">
         <h1>Событие</h1>
-        <p id="eventDetails">Здесь будут отображаться подробности события.</p>
+        <p id="eventDetails">Подробности о событии загружаются...</p>
     </div>
-
+    <div id="errorPage" class="hidden">
+        <h1>Ошибка</h1>
+        <p>Событие не найдено. Проверьте правильность ссылки.</p>
+    </div>
     <script>
-        // Telegram WebApp initialization
         const tg = window.Telegram.WebApp;
 
-        // Список событий
+        // Список событий для примера
         const events = {
-            "101": "Событие 101: Встреча разработчиков Telegram.",
-            "102": "Событие 102: Обсуждение новых функций WebApp.",
-            "103": "Событие 103: Хакатон по созданию мини-приложений."
+            "6353034f-f10b-448f-b8f2-864156de588d": "Событие 1: Встреча с командой Telegram.",
+            "12345678-1234-1234-1234-123456789abc": "Событие 2: Хакатон по разработке Mini App.",
         };
 
-        // Получение параметров запуска
+        // Получение параметра startapp из initData
         const initDataUnsafe = tg.initDataUnsafe;
-        const user = initDataUnsafe.user;
-
-        // ID текущего пользователя
-        const userId = user?.id || "unknown_user";
-
-        // Получение параметра startapp
         const startAppParam = initDataUnsafe.start_param;
 
-        // Элементы интерфейса
-        const mainContent = document.getElementById("mainContent");
         const eventPage = document.getElementById("eventPage");
-        const welcomeMessage = document.getElementById("welcomeMessage");
-        const referralLinkInput = document.getElementById("referralLink");
-        const referralCountElem = document.getElementById("referralCount");
+        const errorPage = document.getElementById("errorPage");
         const eventDetails = document.getElementById("eventDetails");
 
-        // Проверка параметра startapp
-        if (startAppParam && startAppParam.startsWith("event_")) {
-            // Если передан параметр для события, отображаем страницу события
-            mainContent.classList.add("hidden");
+        // Обработка параметра startapp
+        if (startAppParam && events[startAppParam]) {
             eventPage.classList.remove("hidden");
-
-            // Извлечение ID события
-            const eventId = startAppParam.split("_")[1];
-            const eventInfo = events[eventId] || "Информация о событии отсутствует.";
-            eventDetails.textContent = eventInfo;
+            eventDetails.textContent = events[startAppParam];
         } else {
-            // Отображаем стандартную реферальную систему
-            mainContent.classList.remove("hidden");
-            eventPage.classList.add("hidden");
-
-            // Генерация реферальной ссылки
-            const referralLink = `https://t.me/${tg.initDataUnsafe.bot_username}?startapp=ref_${userId}`;
-            referralLinkInput.value = referralLink;
-
-            // Логика обработки рефералов
-            const referralId = startAppParam?.replace("ref_", "");
-            if (referralId) {
-                welcomeMessage.textContent = `Вы приглашены пользователем: ${referralId}`;
-                saveReferral(referralId);
-            } else {
-                welcomeMessage.textContent = `Добро пожаловать, ${user?.first_name || "гость"}!`;
-            }
-
-            // Отображение статистики
-            const referralCount = getReferralCount(userId);
-            referralCountElem.textContent = referralCount;
-
-            // Копирование ссылки
-            document.getElementById("copyLink").addEventListener("click", () => {
-                navigator.clipboard.writeText(referralLink)
-                    .then(() => alert("Ссылка скопирована!"))
-                    .catch(err => console.error("Ошибка копирования ссылки", err));
-            });
-        }
-
-        // Сохранение рефералов в localStorage
-        function saveReferral(referralId) {
-            let referrals = JSON.parse(localStorage.getItem("referrals")) || {};
-            referrals[referralId] = (referrals[referralId] || 0) + 1;
-            localStorage.setItem("referrals", JSON.stringify(referrals));
-        }
-
-        // Получение количества приглашённых
-        function getReferralCount(userId) {
-            const referrals = JSON.parse(localStorage.getItem("referrals")) || {};
-            return referrals[userId] || 0;
+            errorPage.classList.remove("hidden");
         }
     </script>
 </body>
